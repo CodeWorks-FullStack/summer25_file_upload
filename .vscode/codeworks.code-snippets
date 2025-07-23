@@ -1,0 +1,43 @@
+{
+  "Controller": {
+    "prefix": "controller",
+    "body": [
+      "import BaseController from '../utils/BaseController.js'",
+      "export class ${1}Controller extends BaseController {",
+      "  constructor() {",
+      "    super('${2}');",
+      "    this.router",
+      "  }",
+      "}",
+    ],
+    "description": "Default controller template",
+    "isFileTemplate": true,
+  },
+  "Route Handler": {
+    "prefix": "fnc",
+    "body": [
+      "${1}(req,res,next){",
+      "  try{",
+      "    ${2}",
+      "  }",
+      "  catch(error){",
+      "    next(error);",
+      "  }",
+      "}"
+    ],
+    "scope": "javascript,typescript,javascriptreact,typescriptreact"
+  },
+  "Socket Handler": {
+    "prefix": "handler",
+    "body": [
+      "import { SocketHandler } from '../utils/SocketHandler'",
+      "export class ${1}Handler extends SocketHandler {",
+      "  constructor(io, socket) {",
+      "    super(io, socket);",
+      "    this.on('${2}', this.${3});",
+      "  }",
+      "}"
+    ],
+    "scope": "javascript,typescript,javascriptreact,typescriptreact"
+  }
+}
