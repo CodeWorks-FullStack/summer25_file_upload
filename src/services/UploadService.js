@@ -14,16 +14,17 @@ const s3Client = new S3Client({
 
 class UploadService {
   async uploadImage(file, userId) {
+    const Key = 'public/'+ userId + '/' + Date.now() + '_' +  file.name
     const uploadRequest = new PutObjectCommand({
       Bucket: BUCKET_NAME,
-      Key: 'public/'+ userId + '/' + Date.now() + file.name,
+      Key,
       Body: file.data,
       ContentType: file.mimetype,
       CacheControl: 'max-age=36000'
     })
     const s3Response = await s3Client.send(uploadRequest)
     console.log('uploaded completed', s3Response)
-    let imgUrl = `https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/public/${userId}/${file.name}`
+    let imgUrl = `https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/${Key}`
     return imgUrl
   }
 
