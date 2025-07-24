@@ -22,10 +22,10 @@
 FROM node:23-alpine
 
 # Set the working directory in the server container
-WORKDIR /app/server
+WORKDIR /app
 
 # Copy the server-side package.json and package-lock.json to the server container
-COPY server/package*.json ./
+COPY package*.json ./
 
 # Install server application dependencies
 RUN npm install
