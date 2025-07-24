@@ -2,6 +2,8 @@ import { domain, clientId, audience } from './env.js'
 let user = null
 let AuthService = null
 
+let bearer = ''
+
 if (domain && clientId && audience) {
   // @ts-ignore
   // eslint-disable-next-line no-undef
@@ -24,6 +26,7 @@ if (domain && clientId && audience) {
 
   AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async () => {
     user = AuthService.user
+    bearer = AuthService.bearer
     api.defaults.headers.authorization = AuthService.bearer
     api.interceptors.request.use(refreshAuthToken)
     drawUser()
