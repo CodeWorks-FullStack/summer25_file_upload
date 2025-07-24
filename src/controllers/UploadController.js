@@ -9,8 +9,10 @@ export class UploadController extends BaseController {
   constructor() {
     super('api/upload')
     this.router
-      .use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }), 
-        Auth0Provider.getAuthorizedUserInfo, (req, res, next)=>{
+      .use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }))
+      .use(Auth0Provider.getAuthorizedUserInfo)
+      .use( 
+        (req, res, next)=>{
         if(req.headers['x-access'] !== 'hello'){
           return next(new Error('invalid headers'))
         }
