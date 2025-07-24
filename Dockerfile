@@ -1,23 +1,25 @@
 # Use an official Node.js runtime as the base image for the client build
-FROM --platform=linux/amd64 node:23-slim AS client-builder
+# FROM --platform=linux/amd64 node:23-slim AS client-builder
 
-# Set the working directory in the client builder container
-WORKDIR /app/client
+# # Set the working directory in the client builder container
+# WORKDIR /app/client
 
-# Copy the client-side package.json and package-lock.json to the client builder container
-COPY client/package*.json ./
+# # Copy the client-side package.json and package-lock.json to the client builder container
+# COPY client/package*.json ./
 
-# Install client application dependencies
-RUN npm install
+# # Install client application dependencies
+# RUN npm install
 
-# Copy the client application source code to the client builder container
-COPY client ./
+# # Copy the client application source code to the client builder container
+# COPY client ./
 
 # Build the client-side code
-RUN npm run build
+# RUN npm run build
+
+# THE SERVER SIDE 
 
 # Use a smaller base image for the final server image
-FROM node:23-slim
+FROM node:23-alpine
 
 # Set the working directory in the server container
 WORKDIR /app/server
@@ -32,7 +34,7 @@ RUN npm install
 COPY server ./
 
 # Copy the built client files from the client builder container to the server's www directory
-COPY --from=client-builder /app/client/dist /app/server/www
+# COPY --from=client-builder /app/client/dist /app/server/www
 
 # Expose the port your application runs on (e.g., 3000)
 EXPOSE 3000
